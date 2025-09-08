@@ -13,11 +13,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
+        // Create admin user
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'Transportation Admin',
+            'email' => 'admin@transportmanager.com',
+        ]);
+
+        // Run seeders in correct order (respecting foreign key constraints)
+        $this->call([
+            CompanySeeder::class,
+            DriverSeeder::class,
+            VehicleSeeder::class,
+            DriverVehicleSeeder::class,
+            TripSeeder::class,
         ]);
     }
 }
