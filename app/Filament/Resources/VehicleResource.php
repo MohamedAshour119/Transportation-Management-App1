@@ -74,11 +74,9 @@ class VehicleResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('make')
-                    ->searchable()
                     ->sortable(),
                 
                 Tables\Columns\TextColumn::make('model')
-                    ->searchable()
                     ->sortable(),
                 
                 Tables\Columns\TextColumn::make('year')
@@ -86,7 +84,6 @@ class VehicleResource extends Resource
                     ->badge(),
                 
                 Tables\Columns\TextColumn::make('company.name')
-                    ->searchable()
                     ->sortable()
                     ->badge()
                     ->color('info'),
@@ -96,12 +93,10 @@ class VehicleResource extends Resource
                     ->sortable(),
                 
                 Tables\Columns\TextColumn::make('plate_number')
-                    ->searchable()
                     ->copyable(),
                 
                 Tables\Columns\TextColumn::make('vehicle_identification_number')
                     ->label('VIN')
-                    ->searchable()
                     ->toggleable()
                     ->limit(20),
                 
@@ -124,11 +119,10 @@ class VehicleResource extends Resource
             ->filters([
                 Tables\Filters\SelectFilter::make('company')
                     ->relationship('company', 'name')
-                    ->searchable()
                     ->preload(),
                 
                 Tables\Filters\SelectFilter::make('make')
-                    ->options(fn () => \App\Models\Vehicle::distinct()->pluck('make', 'make')->toArray()),
+                    ->options(fn () => Vehicle::distinct()->pluck('make', 'make')->toArray()),
                 
                 Tables\Filters\Filter::make('high_capacity')
                     ->query(fn (Builder $query): Builder => $query->where('capacity', '>=', 20))

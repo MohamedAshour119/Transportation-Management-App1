@@ -19,6 +19,11 @@ class Driver extends Model
         'license_expiry_date',
     ];
 
+    protected $casts = [
+        'license_expiry_date' => 'date', // or 'datetime' if you need time
+    ];
+    
+
     public function company()
     {
         return $this->belongsTo(Company::class);
